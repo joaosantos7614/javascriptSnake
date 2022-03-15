@@ -13,11 +13,11 @@ document.addEventListener('DOMContentLoaded',()=>{
     let food;
     let snake;
     
-    
-    
-
     document.addEventListener('keydown', control);
     const startBtn = document.querySelector('#start-button');
+    
+    //delete this to make the game not start automatically
+    resetGame();
     
     startBtn.addEventListener('click',()=>{
         resetGame();
@@ -39,7 +39,7 @@ document.addEventListener('DOMContentLoaded',()=>{
         score = 0;
         scoreDisplay.innerHTML = 'Score: '+score;
         clearInterval(timerId);
-        timerId = setInterval(move,1000);
+        timerId = setInterval(move,250);
         
         
     }

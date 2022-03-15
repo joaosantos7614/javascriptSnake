@@ -1,3 +1,7 @@
+h1, h3, p {
+    color:midnightblue;
+}
+
 .grid{
     margin-top: 20px;
     width: 200px;
