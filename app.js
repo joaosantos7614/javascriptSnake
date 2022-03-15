@@ -7,6 +7,7 @@ document.addEventListener('DOMContentLoaded',()=>{
 
     let currentHeadPosition;
     let currentDirection; //can be UP, DOWN, LEFT or RIGHT, stored as a string
+    let inputQueue = [];
     let colorIterator; //used to apply colors
     let score;
     let food;
@@ -29,6 +30,7 @@ document.addEventListener('DOMContentLoaded',()=>{
         }
         currentHeadPosition = 40;
         currentDirection = 'RIGHT'
+        inputQueue = [currentDirection];
         colorIterator = 4;
         snake=[[currentHeadPosition,getNextColor()]];
         draw(snake[0]); // draws the first part of the snake array
@@ -37,7 +39,7 @@ document.addEventListener('DOMContentLoaded',()=>{
         score = 0;
         scoreDisplay.innerHTML = 'Score: '+score;
         clearInterval(timerId);
-        timerId = setInterval(move,250);
+        timerId = setInterval(move,1000);
         
         
     }
@@ -58,18 +60,21 @@ document.addEventListener('DOMContentLoaded',()=>{
         {
             if(currentDirection != 'RIGHT') {
                 currentDirection = 'LEFT';
+                inputQueue.push('LEFT');
             }
         }
         else if(e.keyCode == 39) //RIGHT
         {
             if(currentDirection != 'LEFT') {
                 currentDirection = 'RIGHT';
+                inputQueue.push('RIGHT');
             }
         }
         else if(e.keyCode == 38) //UP
         {
             if(currentDirection != 'DOWN') {
                 currentDirection = 'UP';
+                inputQueue.push('UP');
                 
             }
         }
@@ -77,10 +82,10 @@ document.addEventListener('DOMContentLoaded',()=>{
         {
             if(currentDirection != 'UP') {
                 currentDirection = 'DOWN';
-                
+                inputQueue.push('DOWN');
             }
         }
-        
+        console.log(inputQueue);
     }
 
     //FUNCTION TO DRAW 1 ELEMENT OF TYPE [position,color]
@@ -98,6 +103,8 @@ document.addEventListener('DOMContentLoaded',()=>{
     //MOVE
     function move() {
         undraw(snake[snake.length-1]);
+        if(inputQueue.length>=1)
+            currentDirection= inputQueue.shift();
         switch(currentDirection) {
             case 'UP':
                 if(currentHeadPosition<width)    
@@ -131,9 +138,7 @@ document.addEventListener('DOMContentLoaded',()=>{
             gameOver();
                     
         if (food[0]==currentHeadPosition){   //if the current head position matches the food position, food will be attached to snake
-            console.log(snake);
             snake = snake.concat([food]);
-            console.log(snake);
             food = generateRandomFood();
             draw(food);
             score+=10;
