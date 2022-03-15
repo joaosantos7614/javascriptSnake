@@ -1,0 +1,27 @@
+.grid{
+    margin-top: 20px;
+    width: 200px;
+    height: 200px;
+    display: flex;
+    flex-wrap: wrap;
+    background-color:antiquewhite;
+}
+
+.grid div {
+    width:20px;
+    height: 20px;
+    
+}
+
+.snakeBody {
+    width: 20px;
+    height: 20px;
+    background-color: blue;
+    
+}
+
+.container{
+    justify-content: center;
+    display: flex;
+}
+
