@@ -15,13 +15,19 @@ document.addEventListener('DOMContentLoaded',()=>{
     
     document.addEventListener('keydown', control);
     const startBtn = document.querySelector('#start-button');
+    const upBtn = document.querySelector('#up-button');
+    const downBtn = document.querySelector('#down-button');
+    const leftBtn = document.querySelector('#left-button');
+    const rightBtn = document.querySelector('#right-button');
     
     //delete this to make the game not start automatically
     resetGame();
     
-    startBtn.addEventListener('click',()=>{
-        resetGame();
-    });
+    startBtn.addEventListener('click',resetGame);
+    upBtn.addEventListener('click',setUp);
+    downBtn.addEventListener('click',setDown);
+    leftBtn.addEventListener('click',setLeft);
+    rightBtn.addEventListener('click',setRight);
     
     //RESET FUNCTION
     function resetGame() {
@@ -53,39 +59,54 @@ document.addEventListener('DOMContentLoaded',()=>{
         return colorIterator; 
     }
     
+    //SETS DIRECTIONS (moved from inside the events, so it can be used with html image map)
+    function setLeft(){
+        if(currentDirection != 'RIGHT') {
+            currentDirection = 'LEFT';
+            inputQueue.push('LEFT');
+        }
+    }
+    function setRight(){
+        if(currentDirection != 'LEFT') {
+            currentDirection = 'RIGHT';
+            inputQueue.push('RIGHT');
+        }
+    }
+    function setUp(){
+        if(currentDirection != 'DOWN') {
+            currentDirection = 'UP';
+            inputQueue.push('UP');
+            
+        }
+    }
+    function setDown(){
+        if(currentDirection != 'UP') {
+            currentDirection = 'DOWN';
+            inputQueue.push('DOWN');
+        }
+    }
+
+
     //EVENTS FOR KEYS
     function control(e){
         //if(nextDirection) {currentDirection=nextDirection; nextDirection = null;} 
         if(e.keyCode == 37) //LEFT
         {
-            if(currentDirection != 'RIGHT') {
-                currentDirection = 'LEFT';
-                inputQueue.push('LEFT');
-            }
+            setLeft();
         }
         else if(e.keyCode == 39) //RIGHT
         {
-            if(currentDirection != 'LEFT') {
-                currentDirection = 'RIGHT';
-                inputQueue.push('RIGHT');
-            }
+            setRight();
         }
         else if(e.keyCode == 38) //UP
         {
-            if(currentDirection != 'DOWN') {
-                currentDirection = 'UP';
-                inputQueue.push('UP');
-                
-            }
+            setUp();
         }
         else if(e.keyCode == 40) //DOWN
         {
-            if(currentDirection != 'UP') {
-                currentDirection = 'DOWN';
-                inputQueue.push('DOWN');
-            }
+            setDown();
         }
-        console.log(inputQueue);
+        
     }
 
     //FUNCTION TO DRAW 1 ELEMENT OF TYPE [position,color]
