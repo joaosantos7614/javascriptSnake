@@ -3,6 +3,9 @@
 
 <head>
    <script>
+      //global var for memory
+      let memVar = 9
+      
       //function that display value
       function dis(val)
       {
@@ -16,7 +19,16 @@
           let y = eval(x)
           document.getElementById("result").value = y
       }
-        
+      
+      function memStr()
+      {
+          memVar = document.getElementById("result").value;
+      }
+      function memClr()
+      {
+          memVar = "";
+      }
+      
       //function that clear the display
       function clr()
       {
@@ -26,6 +38,13 @@
       function about()
       {
          alert("Calculator made with HTML, CSS and some JavaScript")
+      }
+
+      function sqrt()
+      {
+        let x = document.getElementById("result").value
+        x = Math.sqrt(x)
+        document.getElementById("result").value = x
       }
    </script>
    
@@ -73,7 +92,7 @@
    <div class="container mt-3">
       
          <div class="row d-flex justify-content-center" style="height: 50px;">
-            <input class="col-9 col-md-3" type="text" id="result"/>
+            <input class="col-9 col-md-3" style="text-align: right;" type="text" id="result"/>
             <input class="col-3 col-md-1" type="button" value="CLR" onclick="clr()"/>
          </div>   
          <div class="row d-flex justify-content-center" style="height: 50px;">
@@ -101,7 +120,15 @@
             <input class="col-3 col-md-1" type="button" value="=" onclick="solve()"/> 
             <input class="col-3 col-md-1" type="button" value="x" onclick="dis('*')"/>
          </div>
-         
+         <br>
+         <div class="row d-flex justify-content-center" style="height: 50px;">
+            <input class="col-3 col-md-1" type="button" value="M" onclick="memStr()"/>
+            <input class="col-3 col-md-1" type="button" value="MR" onclick="dis(memVar)"/>   
+            <!-- solve function call function solve to evaluate value -->
+            <input class="col-3 col-md-1" type="button" value="MC" onclick="memClr()"/> 
+            <input class="col-3 col-md-1" type="button" value="SQR" onclick="sqrt()"/>
+         </div>
+
             
          
    
